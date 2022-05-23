@@ -26,7 +26,7 @@ class Bola(pygame.sprite.Sprite):
     def __init__(self,x,y):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load('bola.png')
-        self.image = pygame.transform.scale(self.image,(85,85))
+        self.image = pygame.transform.scale(self.image,(70,70))
         self.rect = self.image.get_rect()
         self.rect.center = [x,y]
 
