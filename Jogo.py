@@ -17,7 +17,7 @@ clock = pygame.time.Clock()
 fps = 60
 
 
-bg = pygame.image.load('img/background.jpg').convert()
+bg = pygame.image.load('background.jpg').convert()
 bg = pygame.transform.scale(bg,(WIDTH,HEIGHT))
 bg_rect = bg.get_rect()
 bg_rect2 = bg_rect.copy()
@@ -25,8 +25,8 @@ bg_rect2 = bg_rect.copy()
 class Bola(pygame.sprite.Sprite):
     def __init__(self,x,y):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load('img/bola.png')
-        self.image = pygame.transform.scale(self.image,(250,200))
+        self.image = pygame.image.load('bola.png')
+        self.image = pygame.transform.scale(self.image,(155,155))
         self.rect = self.image.get_rect()
         self.rect.center = [x,y]
 
