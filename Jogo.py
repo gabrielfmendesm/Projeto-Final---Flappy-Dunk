@@ -5,8 +5,8 @@ pygame.init()
 
 
 #Gera tela principal
-WIDTH = 900
-HEIGHT = 830
+WIDTH = 1920
+HEIGHT = 1080
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Flappy Dunk')
 
@@ -26,7 +26,7 @@ class Bola(pygame.sprite.Sprite):
     def __init__(self,x,y):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load('bola.png')
-        self.image = pygame.transform.scale(self.image,(155,155))
+        self.image = pygame.transform.scale(self.image,(85,85))
         self.rect = self.image.get_rect()
         self.rect.center = [x,y]
 
