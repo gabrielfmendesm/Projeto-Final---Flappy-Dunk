@@ -5,8 +5,8 @@ pygame.init()
 
 
 #Gera tela principal
-WIDTH = 1920
-HEIGHT = 1080
+WIDTH = 1024
+HEIGHT = 768
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Flappy Dunk')
 
@@ -33,7 +33,7 @@ class Bola(pygame.sprite.Sprite):
 
 bola_grupo = pygame.sprite.Group()
 
-ball = Bola(100, int(HEIGHT/2))
+ball = Bola(150, int(HEIGHT/2))
 bola_grupo.add(ball)
         
 
