@@ -18,6 +18,8 @@ voar = False
 game_over = False
 movimento_tela = False
 continuar = True
+anel_frequencia = 3500
+ultimo_anel = pygame.time.get_ticks() - anel_frequencia
 
 clock = pygame.time.Clock()
 fps = 60
@@ -27,9 +29,6 @@ bg = pygame.image.load('background.jpg').convert()
 bg = pygame.transform.scale(bg,(WIDTH,HEIGHT))
 bg_rect = bg.get_rect()
 bg_rect2 = bg_rect.copy()
-
-anel_img = pygame.image.load('anel.png')
-anel_img = pygame.transform.scale(anel_img,(1200,1200))
 
 class Bola(pygame.sprite.Sprite):
     def __init__(self,x,y):
@@ -70,22 +69,20 @@ class Assa_esquerda(pygame.sprite.Sprite):
                 self.rect.y += int(self.speedy)
 
 class Anel(pygame.sprite.Sprite):
-    def __init__(self,img):
-        self.image = img
+    def __init__(self,x,y):
         pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load('anel.png')
+        self.image = pygame.transform.scale(self.image,(1200,1200))
         self.rect = self.image.get_rect()
-        self.rect.x = 700
-        self.rect.y = random.randint(-100, 200)
-        self.speedx = -2
+        self.rect.center = [x,y]
 
     def update(self):
         #velocidade
         if voar == True:
-            self.rect.x += self.speedx
-            self.rect.x += self.speedx
-            if self.rect.right < 300 or self.rect.left > WIDTH:
-                self.rect.x = 750
-                self.rect.y = random.randint(-100, 200)
+            self.rect.x += movimento_velocidade
+        if self.rect.right < 0:
+            self.kill()
+            
             
 
 #grupos
@@ -98,13 +95,12 @@ assa_grupo_atras = pygame.sprite.GroupSingle()
 assa_direita = Assa_esquerda(183, int(HEIGHT/2)-20)
 assa_esquerda = Assa_esquerda(145, int(HEIGHT/2)-15)
 ball = Bola(150, int(HEIGHT/2))
-anel = Anel(anel_img)
 
 #adicionando os sprites aos grupos
 assa_grupo_atras.add(assa_direita)
 assa_grupo.add(assa_esquerda)
 bola_grupo.add(ball)
-anel_grupo.add(anel)
+
         
 
 #Loop principal
@@ -138,7 +134,13 @@ while game:
         continuar = False
 
     pygame.display.flip()
-
+    if voar == True:
+        time_now = pygame.time.get_ticks()
+        if time_now - ultimo_anel > anel_frequencia:
+            anel_height = random.randint(-100,100)
+            anel = Anel(WIDTH, int(HEIGHT/2)+anel_height)
+            anel_grupo.add(anel)
+            ultimo_anel = time_now 
 
     if movimento_tela == True:
         bg_rect.x += movimento_velocidade
