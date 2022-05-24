@@ -16,6 +16,7 @@ movimento_velocidade = -4
 voar = False
 game_over = False
 movimento_tela = False
+continuar = True
 
 clock = pygame.time.Clock()
 fps = 60
@@ -45,21 +46,36 @@ class Bola(pygame.sprite.Sprite):
             if self.rect.bottom < 708:
                 self.rect.y += int(self.speedy)
 
-        #Pulo
-        if game_over == False:
-            if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
-                self.clicked = True
-                self.speedy = -10
-            if pygame.mouse.get_pressed()[0] == 0:
-                self.clicked = False
-        
+       
+class Assa_esquerda(pygame.sprite.Sprite):
+    def __init__(self,x,y):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load('Asa esquerda.png')
+        self.image = pygame.transform.scale(self.image,(90,90))
+        self.rect = self.image.get_rect()
+        self.rect.center = [x,y]
+        self.speedy = 0
+    
+    def update(self):
+        #gravidade
+        if voar == True:
+            self.speedy += 0.5
+            if self.speedy > 10:
+                self.speedy = 10
+            if self.rect.bottom < 708:
+                self.rect.y += int(self.speedy)
 
         
-
-
+assa_grupo = pygame.sprite.Group()
 bola_grupo = pygame.sprite.Group()
+assa_grupo_atras = pygame.sprite.GroupSingle()
 
+assa_direita = Assa_esquerda(183, int(HEIGHT/2)-20)
+assa_esquerda = Assa_esquerda(145, int(HEIGHT/2)-15)
 ball = Bola(150, int(HEIGHT/2))
+
+assa_grupo_atras.add(assa_direita)
+assa_grupo.add(assa_esquerda)
 bola_grupo.add(ball)
         
 
@@ -77,8 +93,13 @@ while game:
     window.blit(bg,bg_rect)
     window.blit(bg, bg_rect2)
 
+    assa_grupo_atras.draw(window)
     bola_grupo.draw(window)
+    assa_grupo.draw(window)
+
+    assa_grupo_atras.update()
     bola_grupo.update()
+    assa_grupo.update()
 
     #Checa se a bola tocou o chão ou o teto
     if ball.rect.bottom > 708:
@@ -89,21 +110,24 @@ while game:
         game_over = False
         movimento_tela = False
         voar = False
+        continuar = False
 
     pygame.display.flip()
     
     
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE and game_over == False:
-                voar = True
-                movimento_tela = True
-                ball.speedy = -10
+            if continuar == True:
+                if event.key == pygame.K_SPACE and game_over == False:
+                    voar = True
+                    movimento_tela = True
+                    ball.speedy = -10
+                    assa_esquerda.speedy = -10
+                    assa_direita.speedy = -10
+
         if event.type == pygame.QUIT:
             game = False
-        if event.type == pygame.MOUSEBUTTONDOWN and voar == False and game_over == False:
-            voar = True
-            movimento_tela = True
+
     
 
     pygame.display.update()
