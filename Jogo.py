@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+import random
 
 pygame.init()
 
@@ -26,6 +27,9 @@ bg = pygame.image.load('background.jpg').convert()
 bg = pygame.transform.scale(bg,(WIDTH,HEIGHT))
 bg_rect = bg.get_rect()
 bg_rect2 = bg_rect.copy()
+
+anel_img = pygame.image.load('anel.png')
+anel_img = pygame.transform.scale(anel_img,(1200,1200))
 
 class Bola(pygame.sprite.Sprite):
     def __init__(self,x,y):
@@ -65,18 +69,42 @@ class Assa_esquerda(pygame.sprite.Sprite):
             if self.rect.bottom < 708:
                 self.rect.y += int(self.speedy)
 
-        
+class Anel(pygame.sprite.Sprite):
+    def __init__(self,img):
+        self.image = img
+        pygame.sprite.Sprite.__init__(self)
+        self.rect = self.image.get_rect()
+        self.rect.x = 700
+        self.rect.y = random.randint(-100, 200)
+        self.speedx = -2
+
+    def update(self):
+        #velocidade
+        if voar == True:
+            self.rect.x += self.speedx
+            self.rect.x += self.speedx
+            if self.rect.right < 300 or self.rect.left > WIDTH:
+                self.rect.x = 750
+                self.rect.y = random.randint(-100, 200)
+            
+
+#grupos
+anel_grupo = pygame.sprite.Group()
 assa_grupo = pygame.sprite.Group()
 bola_grupo = pygame.sprite.Group()
 assa_grupo_atras = pygame.sprite.GroupSingle()
 
+#posição dos sprites
 assa_direita = Assa_esquerda(183, int(HEIGHT/2)-20)
 assa_esquerda = Assa_esquerda(145, int(HEIGHT/2)-15)
 ball = Bola(150, int(HEIGHT/2))
+anel = Anel(anel_img)
 
+#adicionando os sprites aos grupos
 assa_grupo_atras.add(assa_direita)
 assa_grupo.add(assa_esquerda)
 bola_grupo.add(ball)
+anel_grupo.add(anel)
         
 
 #Loop principal
@@ -84,15 +112,11 @@ game = True
 while game:
 
     clock.tick(60)
-    if movimento_tela == True:
-        bg_rect.x += movimento_velocidade
-        if bg_rect.right < 0:
-            bg_rect.x += bg_rect.width
-        bg_rect2.x = bg_rect.x + bg_rect2.width
 
     window.blit(bg,bg_rect)
     window.blit(bg, bg_rect2)
 
+    anel_grupo.draw(window)
     assa_grupo_atras.draw(window)
     bola_grupo.draw(window)
     assa_grupo.draw(window)
@@ -100,6 +124,7 @@ while game:
     assa_grupo_atras.update()
     bola_grupo.update()
     assa_grupo.update()
+    anel_grupo.update()
 
     #Checa se a bola tocou o chão ou o teto
     if ball.rect.bottom > 708:
@@ -113,6 +138,13 @@ while game:
         continuar = False
 
     pygame.display.flip()
+
+
+    if movimento_tela == True:
+        bg_rect.x += movimento_velocidade
+        if bg_rect.right < 0:
+            bg_rect.x += bg_rect.width
+        bg_rect2.x = bg_rect.x + bg_rect2.width
     
     
     for event in pygame.event.get():
