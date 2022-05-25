@@ -8,7 +8,7 @@ pygame.init()
 
 #Gera tela principal
 WIDTH = 1024
-HEIGHT = 850
+HEIGHT = 768
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Flappy Dunk')
 
@@ -47,7 +47,7 @@ class Bola(pygame.sprite.Sprite):
     def __init__(self,x,y):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load('bola.png')
-        self.image = pygame.transform.scale(self.image,(70,70))
+        self.image = pygame.transform.scale(self.image,(60,60))
         self.rect = self.image.get_rect()
         self.rect.center = [x,y]
         self.speedy = 0
@@ -69,9 +69,9 @@ class Asa_esquerda(pygame.sprite.Sprite):
         self.images = []
         self.index = 0
         self.counter = 0
-        self.image = pygame.image.load('Asa esquerda.png')
+        self.image = pygame.image.load('Asa.png')
         self.images.append(self.image)
-        self.image = pygame.image.load('Asa esquerda virada.png')
+        self.image = pygame.image.load('Asa virada.png')
         self.images.append(self.image)
         self.image = self.images[self.index]
         self.rect = self.image.get_rect()
