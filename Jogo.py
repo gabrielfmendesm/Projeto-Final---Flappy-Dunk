@@ -78,18 +78,7 @@ class Asa_esquerda(pygame.sprite.Sprite):
         self.rect.center = [x,y]
         self.speedy = 0
     
-    def update(self):
-        #animação
-        self.counter += 1
-        asa_cooldown = 15
-
-        if self.counter > asa_cooldown:
-            self.counter = 0
-            self.index += 1
-            if self.index >= len(self.images):
-                self.index = 0
-        self.image = self.images[self.index]
-        
+    def update(self): 
         #gravidade
         if voar == True:
             self.speedy += 0.5
@@ -97,6 +86,11 @@ class Asa_esquerda(pygame.sprite.Sprite):
                 self.speedy = 10
             if self.rect.bottom < 781:
                 self.rect.y += int(self.speedy)
+    def abaixado(self):
+                #animação
+        self.image = self.images[1]
+    def levantado(self):
+        self.image = self.images[0]
 
 class Anel(pygame.sprite.Sprite):
     def __init__(self,x,y):
@@ -191,11 +185,18 @@ while game:
         if event.type == pygame.KEYDOWN:
             if continuar == True:
                 if event.key == pygame.K_SPACE and game_over == False:
+                    asa_esquerda.abaixado()
+                    asa_direita.abaixado()
                     voar = True
                     movimento_tela = True
                     ball.speedy = -10
                     asa_esquerda.speedy = -10
                     asa_direita.speedy = -10
+        if event.type == pygame.KEYUP:
+            if continuar == True:
+                if event.key == pygame.K_SPACE and game_over == False:
+                    asa_esquerda.levantado()
+                    asa_direita.levantado()
 
         if event.type == pygame.QUIT:
             game = False
