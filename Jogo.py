@@ -148,11 +148,11 @@ while game:
             #game_over = True
 
     #Checa se a bola tocou o chão ou o teto
-    if ball.rect.bottom > 781:
+    if ball.rect.bottom > 710:
         game_over = True
         voar = False
         movimento_tela = False
-    if ball.rect.top < 72:
+    if ball.rect.top < 61:
         game_over = False
         movimento_tela = False
         voar = False
