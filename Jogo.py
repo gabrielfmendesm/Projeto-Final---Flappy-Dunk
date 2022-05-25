@@ -1,3 +1,4 @@
+from turtle import width
 import pygame
 from pygame.locals import *
 import random
@@ -7,9 +8,15 @@ pygame.init()
 
 #Gera tela principal
 WIDTH = 1024
-HEIGHT = 768
+HEIGHT = 850
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Flappy Dunk')
+
+#fonte do texto
+fonte = pygame.font.SysFont("Bauhaus 93", 60)
+
+#cores
+branco = (255,255,255)
 
 #Variáveis
 bg_movimento = 0
@@ -20,6 +27,8 @@ movimento_tela = False
 continuar = True
 anel_frequencia = 3500
 ultimo_anel = pygame.time.get_ticks() - anel_frequencia
+placar = 0
+passar_anel = False
 
 clock = pygame.time.Clock()
 fps = 60
@@ -29,6 +38,10 @@ bg = pygame.image.load('background.jpg').convert()
 bg = pygame.transform.scale(bg,(WIDTH,HEIGHT))
 bg_rect = bg.get_rect()
 bg_rect2 = bg_rect.copy()
+
+def texto (text, fonte, text_col, x, y):
+    img = fonte.render(text, True, text_col)
+    window.blit(img,  (x,y))
 
 class Bola(pygame.sprite.Sprite):
     def __init__(self,x,y):
@@ -46,33 +59,51 @@ class Bola(pygame.sprite.Sprite):
             self.speedy += 0.5
             if self.speedy > 10:
                 self.speedy = 10
-            if self.rect.bottom < 708:
+            if self.rect.bottom < 781:
                 self.rect.y += int(self.speedy)
 
        
 class Assa_esquerda(pygame.sprite.Sprite):
     def __init__(self,x,y):
         pygame.sprite.Sprite.__init__(self)
+        self.images = []
+        self.index = 0
+        self.counter = 0
         self.image = pygame.image.load('Asa esquerda.png')
         self.image = pygame.transform.scale(self.image,(90,90))
+        self.images.append(self.image)
+        self.image = pygame.image.load('Asa esquerda virada.png')
+        self.image = pygame.transform.scale(self.image,(90,90))
+        self.images.append(self.image)
+        self.image = self.images[self.index]
         self.rect = self.image.get_rect()
         self.rect.center = [x,y]
         self.speedy = 0
     
     def update(self):
+        #animação
+        self.counter += 1
+        asa_cooldown = 15
+
+        if self.counter > asa_cooldown:
+            self.counter = 0
+            self.index += 1
+            if self.index >= len(self.images):
+                self.index = 0
+        self.image = self.images[self.index]
+        
         #gravidade
         if voar == True:
             self.speedy += 0.5
             if self.speedy > 10:
                 self.speedy = 10
-            if self.rect.bottom < 708:
+            if self.rect.bottom < 781:
                 self.rect.y += int(self.speedy)
 
 class Anel(pygame.sprite.Sprite):
     def __init__(self,x,y):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load('anel.png')
-        self.image = pygame.transform.scale(self.image,(1166,773))
         self.rect = self.image.get_rect()
         self.rect.center = [x,y]
 
@@ -101,7 +132,6 @@ assa_grupo_atras.add(assa_direita)
 assa_grupo.add(assa_esquerda)
 bola_grupo.add(ball)
 
-        
 
 #Loop principal
 game = True
@@ -122,23 +152,33 @@ while game:
     assa_grupo.update()
     anel_grupo.update()
 
+    #if pygame.sprite.collide_rect(ball.rect.right, anel.rect.left):
+            #game_over = True
+
     #Checa se a bola tocou o chão ou o teto
-    if ball.rect.bottom > 708:
+    if ball.rect.bottom > 781:
         game_over = True
         voar = False
         movimento_tela = False
-    if ball.rect.top < 60:
+    if ball.rect.top < 72:
         game_over = False
         movimento_tela = False
         voar = False
         continuar = False
 
+    #checar o placar
+    if len(anel_grupo) > 0:
+        if bola_grupo.sprites()[0].rect.center == anel_grupo.sprites()[0].rect.center:
+            placar+=1
+    
+    texto(str(placar), fonte, branco, 512, 20)
+
     pygame.display.flip()
     if voar == True:
         time_now = pygame.time.get_ticks()
         if time_now - ultimo_anel > anel_frequencia:
-            anel_height = random.randint(-100,100)
-            anel = Anel(WIDTH, int(HEIGHT/2)+anel_height)
+            anel_height = random.randint(0,350)
+            anel = Anel(2000, int(HEIGHT/2)+anel_height)
             anel_grupo.add(anel)
             ultimo_anel = time_now 
 
