@@ -4,6 +4,9 @@ import random
 
 pygame.init()
 
+# Simbolo PyGame
+programIcon = pygame.image.load('flappy-dunk.png')
+pygame.display.set_icon(programIcon)
 
 #Gera tela principal
 WIDTH = 1024
