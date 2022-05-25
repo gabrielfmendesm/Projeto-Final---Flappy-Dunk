@@ -72,7 +72,7 @@ class Assa_esquerda(pygame.sprite.Sprite):
         self.image = pygame.image.load('Asa esquerda.png')
         self.image = pygame.transform.scale(self.image,(90,90))
         self.images.append(self.image)
-        self.image = pygame.image.load('Asa esquerda virada.png')
+        self.image = pygame.image.load('Asa esquerda virada 2.png')
         self.image = pygame.transform.scale(self.image,(90,90))
         self.images.append(self.image)
         self.image = self.images[self.index]
