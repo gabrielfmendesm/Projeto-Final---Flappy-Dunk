@@ -1,4 +1,3 @@
-from turtle import width
 import pygame
 from pygame.locals import *
 import random
@@ -29,6 +28,7 @@ anel_frequencia = 3500
 ultimo_anel = pygame.time.get_ticks() - anel_frequencia
 placar = 0
 passar_anel = False
+asa_frequencia = 30
 
 clock = pygame.time.Clock()
 fps = 60
@@ -67,13 +67,10 @@ class Asa_esquerda(pygame.sprite.Sprite):
     def __init__(self,x,y):
         pygame.sprite.Sprite.__init__(self)
         self.images = []
-        self.index = 0
-        self.counter = 0
-        self.image = pygame.image.load('Asa.png')
-        self.images.append(self.image)
         self.image = pygame.image.load('Asa virada.png')
         self.images.append(self.image)
-        self.image = self.images[self.index]
+        self.image = pygame.image.load('Asa.png')
+        self.images.append(self.image)
         self.rect = self.image.get_rect()
         self.rect.center = [x,y]
         self.speedy = 0
@@ -86,11 +83,14 @@ class Asa_esquerda(pygame.sprite.Sprite):
                 self.speedy = 10
             if self.rect.bottom < 781:
                 self.rect.y += int(self.speedy)
-    def abaixado(self):
-                #animação
-        self.image = self.images[1]
-    def levantado(self):
+    def abaixado(self,x):
         self.image = self.images[0]
+        self.rect.center = [x,self.rect.centery-15]
+
+    def levantado(self,x):
+        self.image = self.images[1]
+        self.rect.center = [x,self.rect.centery+15]
+
 
 class Anel(pygame.sprite.Sprite):
     def __init__(self,x,y):
@@ -152,9 +152,10 @@ while game:
         game_over = True
         voar = False
         movimento_tela = False
+
     if ball.rect.top < 61:
         game_over = False
-        movimento_tela = False
+        movimento_tela = False  
         voar = False
         continuar = False
 
@@ -185,18 +186,18 @@ while game:
         if event.type == pygame.KEYDOWN:
             if continuar == True:
                 if event.key == pygame.K_SPACE and game_over == False:
-                    asa_esquerda.abaixado()
-                    asa_direita.abaixado()
                     voar = True
                     movimento_tela = True
                     ball.speedy = -10
                     asa_esquerda.speedy = -10
                     asa_direita.speedy = -10
+                    asa_esquerda.abaixado(145)
+                    asa_direita.abaixado(183)
         if event.type == pygame.KEYUP:
             if continuar == True:
                 if event.key == pygame.K_SPACE and game_over == False:
-                    asa_esquerda.levantado()
-                    asa_direita.levantado()
+                    asa_esquerda.levantado(145)
+                    asa_direita.levantado(183)
 
         if event.type == pygame.QUIT:
             game = False
