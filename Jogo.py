@@ -69,9 +69,9 @@ class Asa_esquerda(pygame.sprite.Sprite):
         self.images = []
         self.index = 0
         self.counter = 0
-        self.image = pygame.image.load('Asa esquerda 2.png')
+        self.image = pygame.image.load('Asa esquerda.png')
         self.images.append(self.image)
-        self.image = pygame.image.load('Asa esquerda virada 2.png')
+        self.image = pygame.image.load('Asa esquerda virada.png')
         self.images.append(self.image)
         self.image = self.images[self.index]
         self.rect = self.image.get_rect()
