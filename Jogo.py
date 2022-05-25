@@ -63,17 +63,17 @@ class Bola(pygame.sprite.Sprite):
                 self.rect.y += int(self.speedy)
 
        
-class Assa_esquerda(pygame.sprite.Sprite):
+class Asa_esquerda(pygame.sprite.Sprite):
     def __init__(self,x,y):
         pygame.sprite.Sprite.__init__(self)
         self.images = []
         self.index = 0
         self.counter = 0
-        self.image = pygame.image.load('Asa esquerda.png')
+        self.image = pygame.image.load('Asa esquerda 2.png')
         self.image = pygame.transform.scale(self.image,(90,90))
         self.images.append(self.image)
-        self.image = pygame.image.load('Asa esquerda virada 2.png')
-        self.image = pygame.transform.scale(self.image,(90,90))
+        self.image = pygame.image.load('Asa esquerda virada.png')
+        self.image = pygame.transform.scale(self.image,(90,80))
         self.images.append(self.image)
         self.image = self.images[self.index]
         self.rect = self.image.get_rect()
@@ -118,18 +118,18 @@ class Anel(pygame.sprite.Sprite):
 
 #grupos
 anel_grupo = pygame.sprite.Group()
-assa_grupo = pygame.sprite.Group()
+asa_grupo = pygame.sprite.Group()
 bola_grupo = pygame.sprite.Group()
-assa_grupo_atras = pygame.sprite.GroupSingle()
+asa_grupo_atras = pygame.sprite.GroupSingle()
 
 #posição dos sprites
-assa_direita = Assa_esquerda(183, int(HEIGHT/2)-20)
-assa_esquerda = Assa_esquerda(145, int(HEIGHT/2)-15)
+asa_direita = Asa_esquerda(183, int(HEIGHT/2)-20)
+asa_esquerda = Asa_esquerda(145, int(HEIGHT/2)-15)
 ball = Bola(150, int(HEIGHT/2))
 
 #adicionando os sprites aos grupos
-assa_grupo_atras.add(assa_direita)
-assa_grupo.add(assa_esquerda)
+asa_grupo_atras.add(asa_direita)
+asa_grupo.add(asa_esquerda)
 bola_grupo.add(ball)
 
 
@@ -143,13 +143,13 @@ while game:
     window.blit(bg, bg_rect2)
 
     anel_grupo.draw(window)
-    assa_grupo_atras.draw(window)
+    asa_grupo_atras.draw(window)
     bola_grupo.draw(window)
-    assa_grupo.draw(window)
+    asa_grupo.draw(window)
 
-    assa_grupo_atras.update()
+    asa_grupo_atras.update()
     bola_grupo.update()
-    assa_grupo.update()
+    asa_grupo.update()
     anel_grupo.update()
 
     #if pygame.sprite.collide_rect(ball.rect.right, anel.rect.left):
@@ -196,8 +196,8 @@ while game:
                     voar = True
                     movimento_tela = True
                     ball.speedy = -10
-                    assa_esquerda.speedy = -10
-                    assa_direita.speedy = -10
+                    asa_esquerda.speedy = -10
+                    asa_direita.speedy = -10
 
         if event.type == pygame.QUIT:
             game = False
