@@ -194,13 +194,13 @@ while game:
                     ball.speedy = -10
                     asa_esquerda.speedy = -10
                     asa_direita.speedy = -10
-                    asa_esquerda.abaixado(145)
-                    asa_direita.abaixado(183)
+                    asa_esquerda.abaixado(140)
+                    asa_direita.abaixado(165)
         if event.type == pygame.KEYUP:
             if continuar == True:
                 if event.key == pygame.K_SPACE and game_over == False:
                     asa_esquerda.levantado(145)
-                    asa_direita.levantado(183)
+                    asa_direita.levantado(180)
 
         if event.type == pygame.QUIT:
             game = False
