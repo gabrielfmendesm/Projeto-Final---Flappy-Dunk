@@ -96,11 +96,15 @@ class Asa_esquerda(pygame.sprite.Sprite):
 
 
 class Anel(pygame.sprite.Sprite):
-    def __init__(self,x,y):
+    def __init__(self,x,y,posicao):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load('anel.png')
+        self.image = pygame.image.load('Anel em cima.png')
         self.rect = self.image.get_rect()
-        self.rect.center = [x,y]
+        if posicao == 1:
+            self.image = pygame.image.load('Anel Embaixo.png')
+            self.rect.bottomleft = [x,y]
+        if posicao == -1:
+            self.rect.topleft = [x,y]
 
     def update(self):
         #velocidade
@@ -113,6 +117,7 @@ class Anel(pygame.sprite.Sprite):
 
 #grupos
 anel_grupo = pygame.sprite.Group()
+anel_grupo1 = pygame.sprite.Group()
 asa_grupo = pygame.sprite.Group()
 bola_grupo = pygame.sprite.Group()
 asa_grupo_atras = pygame.sprite.GroupSingle()
@@ -141,11 +146,13 @@ while game:
     asa_grupo_atras.draw(window)
     bola_grupo.draw(window)
     asa_grupo.draw(window)
+    anel_grupo1.draw(window)
 
     asa_grupo_atras.update()
     bola_grupo.update()
     asa_grupo.update()
     anel_grupo.update()
+    anel_grupo1.update()
 
     #if pygame.sprite.collide_rect(ball.rect.right, anel.rect.left):
             #game_over = True
@@ -173,10 +180,20 @@ while game:
     if voar == True:
         time_now = pygame.time.get_ticks()
         if time_now - ultimo_anel > anel_frequencia:
-            anel_height = random.randint(0,350)
-            anel = Anel(2000, int(HEIGHT/2)+anel_height)
-            anel_grupo.add(anel)
+            anel_height = random.randint(384,810)
+            anel_em_cima = Anel(1000, anel_height - 426,-1)
+            anel_embaixo = Anel(1000, anel_height, 1)
+            anel_grupo.add(anel_em_cima)
+            anel_grupo1.add(anel_embaixo)
             ultimo_anel = time_now 
+    
+            #if pygame.sprite.groupcollide(bola_grupo,anel_grupo1,False, False):
+                #movimento_velocidade = 4
+                #tempo = pygame.time.set_timer(event, millis=10)
+                #if tempo == 10:
+                    #movimento_velocidade = -4
+                    #pygame.time.set_timer(event,millis = 0)
+
 
     if movimento_tela == True:
         bg_rect.x += movimento_velocidade
