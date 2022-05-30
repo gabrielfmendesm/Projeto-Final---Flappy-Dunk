@@ -50,15 +50,15 @@ def texto (text, fonte, text_col, x, y):
     window.blit(img,  (x,y))
 
 def reseta_jogo():
-    anel_grupo.empty
-    anel_grupo1.empty
+    anel_grupo.empty()
+    anel_grupo1.empty()
     anel_em_cima.kill()
     anel_embaixo.kill()
     ball.rect.x = 120
     ball.rect.y = int(HEIGHT/2) + 8
-    asa_direita.rect.x = 183
+    asa_direita.rect.x = 140
     asa_direita.rect.y = int(HEIGHT/2)-20
-    asa_esquerda.rect.x = 145
+    asa_esquerda.rect.x = 105
     asa_esquerda.rect.y = int(HEIGHT/2)-15
     placar = 0
     return placar
@@ -158,7 +158,7 @@ bola_grupo = pygame.sprite.Group()
 asa_grupo_atras = pygame.sprite.GroupSingle()
 
 #posição dos sprites
-asa_direita = Asa(183, int(HEIGHT/2)-20)
+asa_direita = Asa(180, int(HEIGHT/2)-20)
 asa_esquerda = Asa(145, int(HEIGHT/2)-15)
 ball = Bola(150, int(HEIGHT/2))
 
