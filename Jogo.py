@@ -207,10 +207,16 @@ while game:
         continuar = False
 
     #checar o placar
-    if len(anel_grupo) > 0:
-        if bola_grupo.sprites()[0].rect.center == anel_grupo.sprites()[0].rect.center:
-            placar+=1
-    
+    if len(anel_grupo) > 0 and len(anel_grupo1) > 0:
+        if bola_grupo.sprites()[0].rect.center > anel_grupo.sprites()[0].rect.bottom and bola_grupo.sprites()[0].rect.center < anel_grupo.sprites()[0].rect.top and passar_anel == False:
+            passar_anel = True
+        if passar_anel == True:
+            if bola_grupo.sprites()[0].rect.center > anel_grupo.sprites()[0].rect.top:
+                placar += 1
+                passar_anel = False
+
+
+
     texto(str(placar), fonte, branco, 512, 20)
 
     pygame.display.flip()
