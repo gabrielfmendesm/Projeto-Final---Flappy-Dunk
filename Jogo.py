@@ -42,7 +42,8 @@ bg = pygame.transform.scale(bg,(WIDTH,HEIGHT))
 bg_rect = bg.get_rect()
 bg_rect2 = bg_rect.copy()
 
-botao_img = pygame.image.load('bola.png')
+botao_img = pygame.image.load('gameover-flappy-dunk.png')
+botao_img = pygame.transform.scale(botao_img,(60,60))
 
 
 def texto (text, fonte, text_col, x, y):
