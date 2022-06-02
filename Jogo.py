@@ -45,8 +45,8 @@ bg = pygame.transform.scale(bg,(WIDTH,HEIGHT))
 bg_rect = bg.get_rect()
 bg_rect2 = bg_rect.copy()
 
-botao_img = pygame.image.load('gameover-flappy-dunk.png')
-botao_img = pygame.transform.scale(botao_img,(60,60))
+botao_img = pygame.image.load('game-over.png')
+botao_img = pygame.transform.scale(botao_img,(550,78.5))
 
 
 def texto (text, fonte, text_col, x, y):
@@ -191,7 +191,7 @@ asa_grupo_atras.add(asa_direita)
 asa_grupo.add(asa_esquerda)
 bola_grupo.add(ball)
 
-botao_reiniciar = Botao(WIDTH // 2 - 50, HEIGHT // 2 - 100, botao_img)
+botao_reiniciar = Botao(WIDTH / 2 - 275, HEIGHT / 2 - 39.25, botao_img)
 
 id = 0
 #Loop principal
@@ -231,7 +231,7 @@ while game:
         continuar = False
 
 
-    texto(str(placar), fonte, branco, 512, 20)
+    texto(str(placar), fonte, branco, 500, 350)
 
 
     if voar == True:
