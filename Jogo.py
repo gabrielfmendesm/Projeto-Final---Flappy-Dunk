@@ -34,6 +34,7 @@ passar_anel = False
 asa_frequencia = 30
 fisica = False
 pp = False
+continuar1 = []
 
 clock = pygame.time.Clock()
 fps = 60
@@ -70,6 +71,7 @@ class Bola(pygame.sprite.Sprite):
     def __init__(self,x,y):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load('bola.png')
+        self.mask = pygame.mask.from_surface(self.image)
         self.image = pygame.transform.scale(self.image,(60,60))
         self.rect = self.image.get_rect()
         self.rect.center = [x,y]
@@ -116,9 +118,11 @@ class Asa(pygame.sprite.Sprite):
 
 
 class Anel(pygame.sprite.Sprite):
-    def __init__(self,x,y,posicao):
+    def __init__(self,x,y,posicao,id):
         pygame.sprite.Sprite.__init__(self)
+        self.id = id
         self.image = pygame.image.load('Anel em cima.png')
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
         if posicao == 1:
             self.image = pygame.image.load('Anel Embaixo.png')
@@ -189,6 +193,7 @@ bola_grupo.add(ball)
 
 botao_reiniciar = Botao(WIDTH // 2 - 50, HEIGHT // 2 - 100, botao_img)
 
+id = 0
 #Loop principal
 game = True
 while game:
@@ -225,17 +230,6 @@ while game:
         voar = False
         continuar = False
 
-    #checar o placar
-    if len(anel_grupo) > 0 and len(anel_grupo1) > 0:
-        if bola_grupo.sprites()[0].rect.centerx > anel_grupo.sprites()[0].rect.left and bola_grupo.sprites()[0].rect.centerx < anel_grupo.sprites()[0].rect.right:
-            print ("Passou rect")
-            if bola_grupo.sprites()[0].rect.centery > anel_grupo.sprites()[0].rect.top and bola_grupo.sprites()[0].rect.centery < anel_grupo1.sprites()[0].rect.top and passar_anel == False:
-                passar_anel = True
-        if passar_anel == True:
-            if bola_grupo.sprites()[0].rect.centery > anel_grupo1.sprites()[0].rect.top:
-                placar += 1
-                passar_anel = False
-
 
     texto(str(placar), fonte, branco, 512, 20)
 
@@ -243,9 +237,10 @@ while game:
     if voar == True:
         time_now = pygame.time.get_ticks()
         if time_now - ultimo_anel > anel_frequencia:
-            anel_height = random.randint(384,810)
-            anel_em_cima = Anel(1000, anel_height - 426,-1)
-            anel_embaixo = Anel(1000, anel_height, 1)
+            anel_height = random.randint(250,580)
+            anel_em_cima = Anel(1000, anel_height-60,-1, id)
+            anel_embaixo = Anel(1000, anel_height, 1, id)
+            id += 1
             anel_grupo.add(anel_em_cima)
             anel_grupo1.add(anel_embaixo)
             ultimo_anel = time_now
@@ -262,6 +257,20 @@ while game:
             if fisica == True:
                 anel_fisica1()
                 anel_fisica2()
+
+
+    hits = pygame.sprite.spritecollide(ball, anel_grupo, False, pygame.sprite.collide_mask)
+    id_match = -1
+    for anel in hits:
+        if anel.rect.left + 0 <= ball.rect.left and anel.rect.right - 0 >= ball.rect.right:
+            id_match = anel.id
+    hits = pygame.sprite.spritecollide(ball, anel_grupo1, False, pygame.sprite.collide_mask)
+    for anel in hits:
+        if anel not in continuar1:
+            if anel.rect.left + 0 <= ball.rect.left and anel.rect.right - 0 >= ball.rect.right and anel.id == id_match:
+                if anel.rect.top <= ball.rect.bottom and anel.rect.top >= ball.rect.top:
+                    placar+= 1
+                    continuar1.append(anel)
 
 
     if movimento_tela == True:
