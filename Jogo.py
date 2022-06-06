@@ -245,12 +245,10 @@ while game:
         if anel not in continuar1:
             if anel.rect.left + 0 <= ball.rect.left and anel.rect.right - 0 >= ball.rect.right and anel.id == id_match:
                 if ball.rect.bottom < anel.rect.bottom:
-                    print ("nao")
                     if anel.rect.top <= ball.rect.bottom and anel.rect.top >= ball.rect.top:
                         placar+= 1
                         continuar1.append(anel)
                 elif ball.rect.bottom> anel.rect.bottom:
-                    print ("ok")
                     if anel.rect.top <= ball.rect.bottom and anel.rect.top >= ball.rect.top:
                         continuar = False
                         for aneis in anel_grupo: 
