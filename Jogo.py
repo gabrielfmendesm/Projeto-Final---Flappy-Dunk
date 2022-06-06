@@ -33,8 +33,6 @@ ultimo_anel = pygame.time.get_ticks() - anel_frequencia
 placar = 0
 passar_anel = False
 asa_frequencia = 30
-fisica = False
-pp = False
 continuar1 = []
 
 clock = pygame.time.Clock()
@@ -159,22 +157,6 @@ class Botao():
             
         return acao
 
-def anel_fisica1():
-    anel_rect1.x += movimento_velocidade
-    pygame.draw.rect(window,(0,0,0),anel_rect1)
-    
-
-
-def anel_fisica2():
-    anel_rect.x += movimento_velocidade
-    pygame.draw.rect(window,(250,250,250),anel_rect)
-
-
-
-
-anel_rect = pygame.Rect(150,150,50,50)
-anel_rect1 = pygame.Rect(150,150,50,50)
-
 #grupos
 anel_grupo = pygame.sprite.Group()
 anel_grupo1 = pygame.sprite.Group()
@@ -216,8 +198,6 @@ while game:
     anel_grupo.update()
     anel_grupo1.update()
 
-    #if pygame.sprite.collide_rect(ball.rect.right, anel.rect.left):
-            #game_over = True
 
     #Checa se a bola tocou o chão ou o teto
     if ball.rect.bottom > 710:
@@ -245,19 +225,6 @@ while game:
             anel_grupo.add(anel_em_cima)
             anel_grupo1.add(anel_embaixo)
             ultimo_anel = time_now
-            if pp == False:
-                fisica = True
-                anel_rect.bottomleft = (1300,anel_height-200)
-                anel_rect1.bottomleft = (1400,anel_height-200)
-                pp = True
-            if pp == True:
-                if anel_rect1.left<WIDTH:
-                    fisica = True
-                    anel_rect.bottomleft = (1300,anel_height-200)
-                    anel_rect1.bottomleft = (1400,anel_height-200)
-            if fisica == True:
-                anel_fisica1()
-                anel_fisica2()
 
 
     hits = pygame.sprite.spritecollide(ball, anel_grupo, False, pygame.sprite.collide_mask)
