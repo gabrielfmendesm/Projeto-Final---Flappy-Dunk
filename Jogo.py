@@ -8,6 +8,8 @@ pygame.init()
 programIcon = pygame.image.load('flappy-dunk.png')
 pygame.display.set_icon(programIcon)
 
+MARGEM_ANEL = 8
+
 #Gera tela principal
 WIDTH = 1024
 HEIGHT = 768
@@ -34,6 +36,7 @@ placar = 0
 passar_anel = False
 asa_frequencia = 30
 continuar1 = []
+aneis_trocar = 1
 
 clock = pygame.time.Clock()
 fps = 60
@@ -179,6 +182,7 @@ botao_reiniciar = Botao(WIDTH / 2 - 275, HEIGHT / 2 - 39.25, botao_img)
 id = 0
 #Loop principal
 game = True
+id_match = -1
 while game:
 
     clock.tick(60)
@@ -236,14 +240,24 @@ while game:
 
 
     hits = pygame.sprite.spritecollide(ball, anel_grupo, False, pygame.sprite.collide_mask)
-    id_match = -1
+    print(id_match)
     for anel in hits:
-        if anel.rect.left + 0 <= ball.rect.left and anel.rect.right - 0 >= ball.rect.right:
+        if anel.rect.left + MARGEM_ANEL >= ball.rect.left:
+            print('borda esquerda')
+            ball.speedy = 0
+            asa_direita.speedy = 0
+            asa_esquerda.speedy = 0
+            id_match = anel.id
+        elif anel.rect.left + MARGEM_ANEL <= ball.rect.left and anel.rect.right - MARGEM_ANEL >= ball.rect.right:
+            print('cestou')
             id_match = anel.id
     hits = pygame.sprite.spritecollide(ball, anel_grupo1, False, pygame.sprite.collide_mask)
     for anel in hits:
+        #if anel.rect.bottom > ball.rect.bottom:
+            #ball.rect.top = anel.rect.bottom
         if anel not in continuar1:
             if anel.rect.left + 0 <= ball.rect.left and anel.rect.right - 0 >= ball.rect.right and anel.id == id_match:
+                print('aqui')
                 if ball.rect.bottom < anel.rect.bottom:
                     if anel.rect.top <= ball.rect.bottom and anel.rect.top >= ball.rect.top:
                         placar+= 1
@@ -257,6 +271,7 @@ while game:
                         for aneis in anel_grupo1:
                             aneis.kill()
                             break
+                id_match = -1
                         
 
 
