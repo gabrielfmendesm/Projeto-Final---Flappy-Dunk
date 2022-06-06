@@ -8,7 +8,7 @@ pygame.init()
 programIcon = pygame.image.load('flappy-dunk.png')
 pygame.display.set_icon(programIcon)
 
-MARGEM_ANEL = 8
+MARGEM_ANEL = 5
 
 #Gera tela principal
 WIDTH = 1024
@@ -36,7 +36,8 @@ placar = 0
 passar_anel = False
 asa_frequencia = 30
 continuar1 = []
-aneis_trocar = 1
+multiplicador = 1
+x2 = True
 
 clock = pygame.time.Clock()
 fps = 60
@@ -78,6 +79,7 @@ class Bola(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = [x,y]
         self.speedy = 0
+        self.speedx = 0
     
     def update(self):
 
@@ -238,32 +240,53 @@ while game:
             anel_grupo1.add(anel_embaixo)
             ultimo_anel = time_now
 
-
+    movimento_velocidade = - 4
     hits = pygame.sprite.spritecollide(ball, anel_grupo, False, pygame.sprite.collide_mask)
-    print(id_match)
     for anel in hits:
-        if anel.rect.left + MARGEM_ANEL >= ball.rect.left:
+        if anel.rect.left -10 >= ball.rect.left and anel.rect.bottom >= ball.rect.bottom:
             print('borda esquerda')
             ball.speedy = 0
             asa_direita.speedy = 0
             asa_esquerda.speedy = 0
             id_match = anel.id
+            x2 = False
+        if anel.rect.right <= ball.rect.right and anel.rect.bottom >= ball.rect.bottom:
+            print("a")
+            ball.speedy = 0
+            asa_direita.speedy = 0
+            asa_esquerda.speedy = 0
+            id_match = anel.id
+            x2 = False
         elif anel.rect.left + MARGEM_ANEL <= ball.rect.left and anel.rect.right - MARGEM_ANEL >= ball.rect.right:
-            print('cestou')
             id_match = anel.id
     hits = pygame.sprite.spritecollide(ball, anel_grupo1, False, pygame.sprite.collide_mask)
     for anel in hits:
-        #if anel.rect.bottom > ball.rect.bottom:
-            #ball.rect.top = anel.rect.bottom
+        if anel.rect.left >= ball.rect.left:
+            print("b")
+            movimento_velocidade = 2 
+            x2 = False
+            break
+        if anel.rect.right -5 <= ball.rect.right and anel.rect.top >= ball.rect.top:
+            print("ok")
+            movimento_velocidade = 2
+            x2 = False
+            break
         if anel not in continuar1:
             if anel.rect.left + 0 <= ball.rect.left and anel.rect.right - 0 >= ball.rect.right and anel.id == id_match:
-                print('aqui')
                 if ball.rect.bottom < anel.rect.bottom:
                     if anel.rect.top <= ball.rect.bottom and anel.rect.top >= ball.rect.top:
-                        placar+= 1
-                        continuar1.append(anel)
-                elif ball.rect.bottom> anel.rect.bottom:
-                    if anel.rect.top <= ball.rect.bottom and anel.rect.top >= ball.rect.top:
+                        if x2 == False:
+                            multiplicador = 1
+                            placar+= multiplicador
+                            continuar1.append(anel)
+                            x2 = True
+                        else:
+                            print("x2")
+                            multiplicador += 1
+                            placar += multiplicador
+                            continuar1.append(anel)
+                elif ball.rect.bottom > anel.rect.bottom:
+                    if anel.rect.top <= ball.rect.bottom and anel.rect.top - 25>= ball.rect.top:
                         continuar = False
                         for aneis in anel_grupo: 
                             aneis.kill()
