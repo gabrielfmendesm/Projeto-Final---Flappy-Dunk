@@ -1,7 +1,6 @@
 import pygame
 from pygame.locals import *
 import random
-import pymunk
 
 pygame.init()
 
@@ -17,6 +16,7 @@ pygame.display.set_caption('Flappy Dunk')
 
 #fonte do texto
 fonte = pygame.font.SysFont("Bauhaus 93", 60)
+fonte1 = pygame.font.SysFont("Bauhaus 93", 30)
 
 #cores
 branco = (255,255,255)
@@ -202,17 +202,25 @@ while game:
     #Checa se a bola tocou o chão ou o teto
     if ball.rect.bottom > 710:
         game_over = True
-        voar = False
         movimento_tela = False
+        voar = False
 
     if ball.rect.top < 61:
-        game_over = True
-        movimento_tela = False  
-        voar = False
+        for aneis in anel_grupo: 
+            aneis.kill()
+            break
+        for aneis in anel_grupo1:
+            aneis.kill()
+            break
+        ball.speedy = 10
+        asa_esquerda.speedy = 10
+        asa_direita.speedy = 10
         continuar = False
 
-
-    texto(str(placar), fonte, branco, 500, 350)
+    if game_over == False:
+        texto(str(placar), fonte, branco, 500, 350)
+    if game_over == True:
+        texto("Press Game over to restart", fonte1, branco, 350, 430)
 
 
     if voar == True:
@@ -236,9 +244,22 @@ while game:
     for anel in hits:
         if anel not in continuar1:
             if anel.rect.left + 0 <= ball.rect.left and anel.rect.right - 0 >= ball.rect.right and anel.id == id_match:
-                if anel.rect.top <= ball.rect.bottom and anel.rect.top >= ball.rect.top:
-                    placar+= 1
-                    continuar1.append(anel)
+                if ball.rect.bottom < anel.rect.bottom:
+                    print ("nao")
+                    if anel.rect.top <= ball.rect.bottom and anel.rect.top >= ball.rect.top:
+                        placar+= 1
+                        continuar1.append(anel)
+                elif ball.rect.bottom> anel.rect.bottom:
+                    print ("ok")
+                    if anel.rect.top <= ball.rect.bottom and anel.rect.top >= ball.rect.top:
+                        continuar = False
+                        for aneis in anel_grupo: 
+                            aneis.kill()
+                            break
+                        for aneis in anel_grupo1:
+                            aneis.kill()
+                            break
+                        
 
 
     if movimento_tela == True:
