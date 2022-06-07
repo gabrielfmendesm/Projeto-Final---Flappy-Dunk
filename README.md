@@ -3,7 +3,7 @@ Projeto Final Engenharia Insper
 
 Nomes dos Desenvolvedores: Gabriel Fernando Missaka Mendes e Lucca Claro de Oliveira
 
-Descrição do Projeto: O PyGame foi um projeto proposto pelos professores e coordenadores da disciplina "Design de Software" do curso de Engenharia do Instituto de Ensino e Pesquisa (Insper). O projeto consiste na criação e desenvolvimento de um jogo escrito totalmente na linguagem Python escolhido pelos desenvolvedores, o projeto teve um desenvolvimento que durou aproximadamente 3 semanas e o jogo conta com aspectos comumente encontrados nos jogos atualmente, como: efeitos sonoros, jogabilidade fluida e desafiadora.
+Descrição do Projeto: O PyGame foi um projeto proposto pelos professores e coordenadores da disciplina "Design de Software" do curso de Engenharia do Instituto de Ensino e Pesquisa (Insper). O projeto consiste na criação e desenvolvimento de um jogo escolhido pelos desenvolvedores escrito totalmente na linguagem Python, o projeto teve um desenvolvimento que durou aproximadamente 3 semanas e o jogo conta com aspectos comumente encontrados nos jogos atualmente, como: efeitos sonoros, jogabilidade fluida e desafiadora.
 
 Nome do Jogo: Flappy Dunk
 
