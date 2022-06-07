@@ -322,7 +322,6 @@ while game:
                             aneis.kill()
                             break
                 id_match = -1
-    checa()
                         
 
     if movimento_tela == True:
