@@ -12,9 +12,13 @@ Como se joga: No jogo, o jogador deverá pressionar a barra de espaço para faze
 Arquivo:
 
 Instruções do Jogo: O objetivo principal em Flappy Dunk é pressionar a barra de espaço e guiar a bola para dentro dos anéis que aparecerem. No início de cada jogatina, os anéis serão bem fáceis de passar, mas ficarão cada vez mais difíceis à medida que o jogador vai avançando, alguns anéis estarão em ângulos diferentes para aumentar a dificuldade com que o jogador precisa atravessar com a bola. Além das instruções básicas, existem algumas regras:
+
     - O jogador precisa evitar fazer com que a bola caia muito baixo ou pule muito alto, pois caso a bola encoste na parte superior ou na parte inferior da tela o jogador terá perdido o jogo;
+
     - A pontuação só será contada caso o jogador atravesse o anel com a bola pela parte superior, caso contrário a pontuação não será considerada e ele terá perdido o jogo;
+    
     - Caso o jogador falhe em atravessar o anel com a bola a medida com que ele se aproxima nenhuma pontuação será considerada e ele perderá o jogo;
+    
     - Caso o jogador atravesse o arco com a bola sem encostar em nenhuma das extremidades do anel, ele receberá um multiplicador de pontos que aumentará a medida com que ele continua a atravessar os anéis sem encostar nessas extremidades, caso ele encoste em uma dessas laterais do anel enquanto estiver com um multiplicador ativo ele perderá o bonûs e o multiplicador perderá o efeito.
 
  Vídeo de Demonstração do Jogo:
