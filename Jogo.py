@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 import random
+import time
 
 pygame.init()
 
@@ -19,9 +20,11 @@ pygame.display.set_caption('Flappy Dunk')
 #fonte do texto
 fonte = pygame.font.SysFont("Bauhaus 93", 60)
 fonte1 = pygame.font.SysFont("Bauhaus 93", 30)
+fonte2 = pygame.font.SysFont("Bauhaus 93", 80)
 
 #cores
 branco = (255,255,255)
+vermelho = (233,45,45)
 
 #Variáveis
 bg_movimento = 0
@@ -38,6 +41,7 @@ asa_frequencia = 30
 continuar1 = []
 multiplicador = 1
 x2 = True
+swish = False
 
 clock = pygame.time.Clock()
 fps = 60
@@ -181,6 +185,9 @@ bola_grupo.add(ball)
 
 botao_reiniciar = Botao(WIDTH / 2 - 275, HEIGHT / 2 - 39.25, botao_img)
 
+ponto_som = pygame.mixer.Sound('Game-Point-Sound-Effect.mp3')
+game_over_som = pygame.mixer.Sound('Game-Over-Sound-Effect.mp3')
+
 id = 0
 #Loop principal
 game = True
@@ -226,7 +233,9 @@ while game:
     if game_over == False:
         texto(str(placar), fonte, branco, 500, 350)
     if game_over == True:
-        texto("Press Game over to restart", fonte1, branco, 350, 430)
+        texto("Press Game over to restart", fonte1, branco, 350, 430) 
+    if swish == True:
+        texto(f"Diretasso! {multiplicador}x", fonte2, vermelho, 300, 180)
 
 
     if voar == True:
@@ -276,15 +285,19 @@ while game:
                 if ball.rect.bottom < anel.rect.bottom:
                     if anel.rect.top <= ball.rect.bottom and anel.rect.top >= ball.rect.top:
                         if x2 == False:
+                            swish = False
                             multiplicador = 1
                             placar+= multiplicador
                             continuar1.append(anel)
                             x2 = True
+                            ponto_som.play()
                         else:
+                            swish = True
                             print("x2")
                             multiplicador += 1
                             placar += multiplicador
                             continuar1.append(anel)
+                            ponto_som.play()
                 elif ball.rect.bottom > anel.rect.bottom:
                     if anel.rect.top <= ball.rect.bottom and anel.rect.top - 25>= ball.rect.top:
                         continuar = False
