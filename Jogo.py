@@ -25,6 +25,10 @@ fonte2 = pygame.font.SysFont("Bauhaus 93", 80)
 #cores
 branco = (255,255,255)
 vermelho = (233,45,45)
+verde = (0, 255, 0)
+azul = (0, 0, 255)
+verde_piscina = (0, 255, 205)
+roxo = (135, 37, 295)
 
 #Variáveis
 bg_movimento = 0
@@ -36,6 +40,7 @@ continuar = True
 anel_frequencia = 3500
 ultimo_anel = pygame.time.get_ticks() - anel_frequencia
 placar = 0
+highscore = 0
 passar_anel = False
 asa_frequencia = 30
 continuar1 = []
@@ -67,11 +72,11 @@ def reseta_jogo():
     anel_em_cima.kill()
     anel_embaixo.kill()
     ball.rect.x = 120
-    ball.rect.y = int(HEIGHT/2) + 8
+    ball.rect.y = 350
     asa_direita.rect.x = 140
-    asa_direita.rect.y = int(HEIGHT/2)-20
+    asa_direita.rect.y = 320
     asa_esquerda.rect.x = 105
-    asa_esquerda.rect.y = int(HEIGHT/2)-15
+    asa_esquerda.rect.y = 325
     placar = 0
     return placar
 
@@ -246,9 +251,13 @@ while game:
     if game_over == False:
         texto(str(placar), fonte, branco, 500, 350)
     if game_over == True:
-        texto("Press Game over to restart", fonte1, branco, 350, 430) 
+        texto(f"Score: {placar}", fonte, verde_piscina, 260, 280)  
+    if game_over == True:
+        texto("Press Game over to restart", fonte1, branco, 380, 440) 
     if swish == True and game_over == False:
-        texto(f"Diretasso! {multiplicador}x", fonte2, vermelho, 300, 180)
+        texto(f"Diretasso! {multiplicador}x", fonte2, vermelho, 330, 180)
+    if game_over == True:
+        texto(f"Highscore: {highscore}", fonte, vermelho, 510, 280)
 
 
     if voar == True:
