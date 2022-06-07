@@ -42,6 +42,7 @@ continuar1 = []
 multiplicador = 1
 x2 = True
 swish = False
+cond1 = False
 
 clock = pygame.time.Clock()
 fps = 60
@@ -73,6 +74,18 @@ def reseta_jogo():
     asa_esquerda.rect.y = int(HEIGHT/2)-15
     placar = 0
     return placar
+
+def checa ():
+    for aneis in anel_grupo:
+        if aneis.rect.right < 0:
+            print("ocorreu")
+            if cond1 == False:
+                print("AAAA")
+                continuar == False
+            if cond1 == True:
+                print("BBBB")
+                cond1 == False
+            break
 
 class Bola(pygame.sprite.Sprite):
     def __init__(self,x,y):
@@ -234,7 +247,7 @@ while game:
         texto(str(placar), fonte, branco, 500, 350)
     if game_over == True:
         texto("Press Game over to restart", fonte1, branco, 350, 430) 
-    if swish == True:
+    if swish == True and game_over == False:
         texto(f"Diretasso! {multiplicador}x", fonte2, vermelho, 300, 180)
 
 
@@ -272,12 +285,12 @@ while game:
     for anel in hits:
         if anel.rect.left >= ball.rect.left:
             print("b")
-            movimento_velocidade = 2 
+            movimento_velocidade = 4
             x2 = False
             break
         if anel.rect.right -5 <= ball.rect.right and anel.rect.top >= ball.rect.top:
             print("ok")
-            movimento_velocidade = 2
+            movimento_velocidade = 4
             x2 = False
             break
         if anel not in continuar1:
@@ -298,6 +311,7 @@ while game:
                             placar += multiplicador
                             continuar1.append(anel)
                             ponto_som.play()
+                        cond1 = True
                 elif ball.rect.bottom > anel.rect.bottom:
                     if anel.rect.top <= ball.rect.bottom and anel.rect.top - 25>= ball.rect.top:
                         continuar = False
@@ -308,8 +322,8 @@ while game:
                             aneis.kill()
                             break
                 id_match = -1
+    checa()
                         
-
 
     if movimento_tela == True:
         bg_rect.x += movimento_velocidade
