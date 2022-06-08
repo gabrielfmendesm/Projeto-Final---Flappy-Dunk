@@ -205,6 +205,8 @@ botao_reiniciar = Botao(WIDTH / 2 - 275, HEIGHT / 2 - 39.25, botao_img)
 
 ponto_som = pygame.mixer.Sound('Game-Point-Sound-Effect.mp3')
 game_over_som = pygame.mixer.Sound('Game-Over-Sound-Effect.mp3')
+asa_som = pygame.mixer.Sound("Flappy Dunk Sound.mp3")
+asa_som.set_volume(0.1)
 
 id = 0
 #Loop principal
@@ -359,6 +361,7 @@ while game:
                     asa_direita.speedy = -10
                     asa_esquerda.abaixado(140)
                     asa_direita.abaixado(165)
+                    asa_som.play()
         if event.type == pygame.KEYUP:
             if continuar == True:
                 if event.key == pygame.K_SPACE and game_over == False:
