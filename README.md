@@ -19,4 +19,4 @@ Instruções do Jogo: O objetivo principal em Flappy Dunk é pressionar a barra 
     
 - Caso o jogador atravesse o arco com a bola sem encostar em nenhuma das extremidades do anel, ele receberá um multiplicador de pontos que aumentará a medida com que ele permanece atravessando os anéis sem encostar nessas extremidades, caso ele encoste em uma dessas laterais do anel enquanto estiver com um multiplicador ativo ele perderá o bônus e o multiplicador perderá o efeito.
 
- Vídeo de Demonstração do Jogo:
+ Vídeo de Demonstração do Jogo: https://youtu.be/VhbjQBAdtvQ
