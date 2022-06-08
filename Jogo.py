@@ -50,7 +50,7 @@ swish = False
 cond1 = False
 
 clock = pygame.time.Clock()
-fps = 60
+fps = 120
 
 
 bg = pygame.image.load('background.jpg').convert()
@@ -251,14 +251,14 @@ while game:
     if game_over == False:
         texto(str(placar), fonte, branco, 500, 350)
     if game_over == True:
-        texto(f"Score: {placar}", fonte, verde_piscina, 260, 280)  
+        texto(f"Score: {placar}", fonte, verde_piscina, 260, 280)
     if game_over == True:
-        texto("Press Game over to restart", fonte1, branco, 380, 440) 
-    if swish == True and game_over == False:
+        texto("Press Game over to restart", fonte1, branco, 380, 440)
+        texto(f'Highscore: {highscore}', fonte, vermelho, 510, 280)
+    if voar == False and game_over == False:
+        texto(f'Highscore: {highscore}', fonte, vermelho, 390, 250)
+    if swish == True and game_over == False and voar == True and placar > 1:
         texto(f"Diretasso! {multiplicador}x", fonte2, vermelho, 330, 180)
-    if game_over == True:
-        texto(f"Highscore: {highscore}", fonte, vermelho, 510, 280)
-
 
     if voar == True:
         time_now = pygame.time.get_ticks()
@@ -313,6 +313,8 @@ while game:
                             continuar1.append(anel)
                             x2 = True
                             ponto_som.play()
+                            if placar > highscore:
+                                highscore = placar
                         else:
                             swish = True
                             print("x2")
@@ -320,7 +322,8 @@ while game:
                             placar += multiplicador
                             continuar1.append(anel)
                             ponto_som.play()
-                        cond1 = True
+                            if placar > highscore:
+                                highscore = placar
                 elif ball.rect.bottom > anel.rect.bottom:
                     if anel.rect.top <= ball.rect.bottom and anel.rect.top - 25>= ball.rect.top:
                         continuar = False
