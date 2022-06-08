@@ -261,6 +261,9 @@ while game:
         texto(f'Highscore: {highscore}', fonte, vermelho, 390, 250)
     if swish == True and game_over == False and voar == True and placar > 1:
         texto(f"Diretasso! {multiplicador}x", fonte2, vermelho, 330, 180)
+    if game_over == True:
+        game_over_som.play
+        game_over_som.fadeout(5000)
 
     if voar == True:
         time_now = pygame.time.get_ticks()
