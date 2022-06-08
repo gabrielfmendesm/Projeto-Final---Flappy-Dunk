@@ -257,6 +257,7 @@ while game:
     if game_over == True:
         texto("Press Game over to restart", fonte1, branco, 380, 440)
         texto(f'Highscore: {highscore}', fonte, vermelho, 510, 280)
+        multiplicador = 1
     if voar == False and game_over == False:
         texto(f'Highscore: {highscore}', fonte, vermelho, 390, 250)
     if swish == True and game_over == False and voar == True and placar > 1:
@@ -280,14 +281,12 @@ while game:
     hits = pygame.sprite.spritecollide(ball, anel_grupo, False, pygame.sprite.collide_mask)
     for anel in hits:
         if anel.rect.left -10 >= ball.rect.left and anel.rect.bottom >= ball.rect.bottom:
-            print('borda esquerda')
             ball.speedy = 0
             asa_direita.speedy = 0
             asa_esquerda.speedy = 0
             id_match = anel.id
             x2 = False
         if anel.rect.right <= ball.rect.right and anel.rect.bottom >= ball.rect.bottom:
-            print("a")
             ball.speedy = 0
             asa_direita.speedy = 0
             asa_esquerda.speedy = 0
@@ -298,12 +297,10 @@ while game:
     hits = pygame.sprite.spritecollide(ball, anel_grupo1, False, pygame.sprite.collide_mask)
     for anel in hits:
         if anel.rect.left >= ball.rect.left:
-            print("b")
             movimento_velocidade = 4
             x2 = False
             break
         if anel.rect.right -5 <= ball.rect.right and anel.rect.top >= ball.rect.top:
-            print("ok")
             movimento_velocidade = 4
             x2 = False
             break
