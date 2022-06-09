@@ -10,11 +10,15 @@ Nome do Jogo: Flappy Dunk
 Como se joga: No jogo, o jogador deverá pressionar a barra de espaço para fazer com que uma bola salte através de vários anéis, com cada anel ficando mais difícil progressivamente.
 
 Como baixar os arquivos do jogo: 
-1 - Primeiramente acesse o link do jogo no GitHub: https://github.com/gabrielfmendesm/Projeto-Final-Flappy-Dunk.
-2 - Após acessar o link, clique no botão verde "Code" ou "Código" e efetue o download da pasta que contém os arquivos do jogo.
-3 - Após efetuar o download da pasta, abra ela no seu IDE de prefêrencia (VsCode, PyCharm, etc).
-4 - Assim que todos os arquivos estiverem prontos, execute o arquivo "Jogo.py" ele irá executar o código raiz do jogo que fará com que o jogo seja executado. 
-5 - Assim que a tela do jogo abrir, tudo estará pronto para jogar.
+- Primeiramente acesse o link do jogo no GitHub: https://github.com/gabrielfmendesm/Projeto-Final-Flappy-Dunk.
+
+- Após acessar o link, clique no botão verde "Code" ou "Código" e efetue o download da pasta que contém os arquivos do jogo.
+
+- Após efetuar o download da pasta, abra ela no seu IDE de prefêrencia (VsCode, PyCharm, etc).
+
+- Assim que todos os arquivos estiverem prontos, execute o arquivo "Jogo.py" ele irá executar o código raiz do jogo que fará com que o jogo seja executado. 
+
+- Assim que a tela do jogo abrir, tudo estará pronto para jogar.
 
 Instruções do Jogo: O objetivo principal em Flappy Dunk é pressionar a barra de espaço e guiar a bola para dentro dos anéis que aparecerem. No início de cada jogatina, os anéis serão bem fáceis de passar, mas ficarão cada vez mais difíceis à medida que o jogador vai avançando, alguns anéis estarão em ângulos diferentes para aumentar a dificuldade com que o jogador precisa atravessar com a bola. Além das instruções básicas, existem algumas regras:
 
