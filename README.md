@@ -9,7 +9,8 @@ Nome do Jogo: Flappy Dunk
 
 Como se joga: No jogo, o jogador deverá pressionar a barra de espaço para fazer com que uma bola salte através de vários anéis, com cada anel ficando mais difícil progressivamente.
 
-Como baixar os arquivos do jogo: 
+Como baixar os arquivos do jogo:
+
 - Primeiramente acesse o link do jogo no GitHub: https://github.com/gabrielfmendesm/Projeto-Final-Flappy-Dunk.
 
 - Após acessar o link, clique no botão verde "Code" ou "Código" e efetue o download da pasta que contém os arquivos do jogo.
